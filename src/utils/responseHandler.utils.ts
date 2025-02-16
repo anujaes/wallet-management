@@ -1,5 +1,7 @@
 // utils/responseHandler.ts
 
+import { error } from "console";
+
 interface ResponseData<T> {
     success: boolean;
     message: string;
@@ -28,9 +30,19 @@ const successResponse = <T>(message: string, data?: T) => {
 const errorResponse = (message: string, error?: any) => {
     return {
         success: false,
-        message :  message ||  error.message || "Something went wrong!",
+        message: message || error.message || "Something went wrong!",
         error,
     } as ResponseData<null>;
 };
 
-export { successResponse, errorResponse };
+
+const responseHandler = (result: any) => {
+    return {
+        succes: result.success,
+        message: result.message,
+        error: result.error,
+        data: result.data
+    } as any;
+}
+
+export { successResponse, errorResponse, responseHandler };
